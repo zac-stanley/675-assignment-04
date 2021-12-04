@@ -37,6 +37,17 @@
   })
 
   map.addLayer({
+      'id': 'places',  // provide an id for later reference
+      'type': 'circle',
+      'source': 'pop-places',  // refers to the source name we entered above
+      'source-layer': 'places',  // refers to the name of the tileset hosted on Mapbox Studio
+      'layout': {},
+      'paint': {
+          "circle-color": "#448ee4"
+      }
+    });
+
+  map.addLayer({
       "id": "places-labels",
       "type": "symbol",
       'source': 'pop-places',
@@ -53,6 +64,38 @@
       }
   });
   });
+
+  const popup = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false
+  });
+
+  map.on('mouseenter', 'places', function(e) {
+    
+    const features = map.queryRenderedFeatures(e.point);
+  
+    // Change the cursor style as a UI affordance.
+    map.getCanvas().style.cursor = 'pointer';
+
+    // Populate the popup and set its coordinates
+    // based on the feature found
+    const coordinates = e.features[0].geometry.coordinates;
+    const population = e.features[0].properties.pop_max;
+
+    popup
+      .setLngLat(coordinates)
+      .setHTML("Population: " + Number(population).toLocaleString())
+      .addTo(map);
+  });
+
+    map.on('mouseleave', 'places', function () {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+  });
+
+
+  
+
 
 </script>
  
