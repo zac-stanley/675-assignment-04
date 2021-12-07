@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>Compare New Orleans</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css" type="text/css" />
+    <style>
+        body {
+            margin:0;
+            padding:0;
+        }
+        .map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+  <div id="comparison-container">
+    <div id="before" class="map"></div>
+    <div id="after" class="map"></div>
+  </div>
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js'></script>
+
+   <script>
+
+     mapboxgl.accessToken = 'pk.eyJ1IjoiemFjc3RhbmxleSIsImEiOiJja3Z1OWxrMDE4M3RiMnVxcGFrMmJobDNxIn0.E3sutiZKSMdkPXNVGLq0Og';
+
+    const before = new mapboxgl.Map({
+    container: 'before', // Container ID
+    style: 'mapbox://styles/mapbox/outdoors-v10',
+    center: [0, 0],
+    zoom: 0
+    });
+
+    const after = new mapboxgl.Map({
+    container: 'after', // Container ID
+    style: 'mapbox://styles/zacstanley/ckwvma5xo5zyc14o6ij1eq9b2',
+    center: [0, 0],
+    zoom: 0
+    });
+
+    const container = '#comparison-container'
+
+    const map = new mapboxgl.Compare(before, after, container, {
+    mousemove: false
+    });
+
+  </script>
+
+</body>
+</html>
